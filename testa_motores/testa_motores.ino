@@ -7,7 +7,7 @@
 #define IN3 9   // Pino de controle 1 do Motor B
 #define IN4 10  // Pino de controle 2 do Motor B
 
-#define VELOCIDADE 200
+#define VELOCIDADE 150
 
 void setup() {
   // Configura todos os pinos como SAÍDA
@@ -36,13 +36,13 @@ void loop() {
   delay(2000); // Aguarda 2 segundos antes de repetir o loop
 }
 
-void anda_frente(){
+void anda_tras(){
   // === Teste: Motores para frente ===
-  Serial.println("Movendo para frente...");
+  Serial.println("Movendo para Tras...");
   digitalWrite(IN1, HIGH);  // Motor A: Liga para frente
   digitalWrite(IN2, LOW);
-  digitalWrite(IN3, HIGH);  // Motor B: Liga para frente
-  digitalWrite(IN4, LOW);
+  digitalWrite(IN3, LOW);  // Motor B: Liga para frente
+  digitalWrite(IN4, HIGH);
   
   // Define a velocidade dos motores (0 a 255)
   // 255 é velocidade máxima. Você pode diminuir para testar
@@ -50,13 +50,13 @@ void anda_frente(){
   analogWrite(ENB, VELOCIDADE);
 }
 
-void anda_tras(){
+void anda_frente(){
     // === Teste: Motores para trás ===
-  Serial.println("Movendo para trás...");
+  Serial.println("Movendo para Frente...");
   digitalWrite(IN1, LOW);   // Motor A: Liga para trás
   digitalWrite(IN2, HIGH);
-  digitalWrite(IN3, LOW);   // Motor B: Liga para trás
-  digitalWrite(IN4, HIGH);
+  digitalWrite(IN3, HIGH);   // Motor B: Liga para trás
+  digitalWrite(IN4, LOW);
   
   // Define a velocidade novamente
   analogWrite(ENA, VELOCIDADE); 

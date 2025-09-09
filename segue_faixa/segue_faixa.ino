@@ -8,7 +8,7 @@
 #define ENB 11  // Pino de Habilitação do Motor B (PWM)
 #define IN3 9   // Pino de controle 1 do Motor B
 #define IN4 10  // Pino de controle 2 do Motor B
-#define VELOCIDADE 200
+#define VELOCIDADE 150
 
 void setup() {
   // Configura os pinos dos sensores como ENTRADAS
@@ -65,40 +65,40 @@ void loop() {
 
 void anda_frente(){
   Serial.println("Movendo para Frente...");
-//  digitalWrite(IN1, HIGH);  // Motor A: Liga para frente
-//  digitalWrite(IN2, LOW);
-//  digitalWrite(IN3, HIGH);  // Motor B: Liga para frente
-//  digitalWrite(IN4, LOW);
-//  analogWrite(ENA, VELOCIDADE); 
-//  analogWrite(ENB, VELOCIDADE);
+  digitalWrite(IN1, LOW);   // Motor A: Liga para trás
+  digitalWrite(IN2, HIGH);
+  digitalWrite(IN3, HIGH);   // Motor B: Liga para trás
+  digitalWrite(IN4, LOW);
+  analogWrite(ENA, VELOCIDADE); 
+  analogWrite(ENB, VELOCIDADE);
 }
 
 void virarParaEsquerda() {
   Serial.println("Movendo para Esquerda...");
-//  digitalWrite(IN1, HIGH); // Motor Esquerdo para frente
-//  digitalWrite(IN2, LOW);
-//  digitalWrite(IN3, LOW);  // Motor Direito para trás
-//  digitalWrite(IN4, HIGH);
-//  analogWrite(ENA, VELOCIDADE);
-//  analogWrite(ENB, VELOCIDADE);
+  digitalWrite(IN1, HIGH); // Motor Esquerdo para frente
+  digitalWrite(IN2, LOW);
+  digitalWrite(IN3, HIGH);  // Motor Direito para trás
+  digitalWrite(IN4, LOW);
+  analogWrite(ENA, VELOCIDADE);
+  analogWrite(ENB, VELOCIDADE);
 }
 
 void virarParaDireita() {
   Serial.println("Movendo para Direita...");
-//  digitalWrite(IN1, LOW);  // Motor Esquerdo para trás
-//  digitalWrite(IN2, HIGH);
-//  digitalWrite(IN3, HIGH); // Motor Direito para frente
-//  digitalWrite(IN4, LOW);
-//  analogWrite(ENA, VELOCIDADE);
-//  analogWrite(ENB, VELOCIDADE);
+  digitalWrite(IN1, LOW);  // Motor Esquerdo para trás
+  digitalWrite(IN2, HIGH);
+  digitalWrite(IN3, LOW); // Motor Direito para frente
+  digitalWrite(IN4, HIGH);
+  analogWrite(ENA, VELOCIDADE);
+  analogWrite(ENB, VELOCIDADE);
 }
 
 void para_motores(){
   Serial.println("Parando motores...");
-//  digitalWrite(IN1, LOW);  
-//  digitalWrite(IN2, LOW);
-//  digitalWrite(IN3, LOW);
-//  digitalWrite(IN4, LOW);
-//  analogWrite(ENA, 0); 
-//  analogWrite(ENB, 0);
+  digitalWrite(IN1, LOW);  
+  digitalWrite(IN2, LOW);
+  digitalWrite(IN3, LOW);
+  digitalWrite(IN4, LOW);
+  analogWrite(ENA, 0); 
+  analogWrite(ENB, 0);
 }
