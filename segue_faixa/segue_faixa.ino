@@ -1,6 +1,6 @@
 // Definição dos pinos do Arduino para os sensores de linha
 #define SENSOR_DIREITA 4
-#define SENSOR_ESQUERDA 3 
+#define SENSOR_ESQUERDA 3
 // Definição dos pinos do Arduino para a Ponte H L298N
 #define VELOCIDADE_DIREITA 6   // Pino de Habilitação do Motor A (PWM)
 #define IN1 7   // Pino de controle 1 do Motor A
@@ -8,7 +8,8 @@
 #define VELOCIDADE_ESQUERDO 11  // Pino de Habilitação do Motor B (PWM)
 #define IN3 9   // Pino de controle 1 do Motor B
 #define IN4 10  // Pino de controle 2 do Motor B
-#define VELOCIDADE 100
+#define VELOCIDADE 105
+#define TEMPO 7
 
 void setup() {
   // Configura os pinos dos sensores como ENTRADAS
@@ -42,24 +43,22 @@ void loop() {
 
 
   // Pequeno atraso para a leitura ser mais estável
-  // delay(100);
+  //delay(100);
 
   if (leitura_direita == 0 and leitura_esquerda == 0){
       anda_frente();
   }
-  else {
-    if (leitura_direita == 0 and leitura_esquerda == 1){
-        virarParaEsquerda();
-    }
-    else {
-      if (leitura_direita == 1 and leitura_esquerda == 0){
-          virarParaDireita();
-      }
-      else {
-          para_motores();
-      }
-    }
+  if (leitura_direita == 0 and leitura_esquerda == 1){
+      virarParaEsquerda();
   }
+  if (leitura_direita == 1 and leitura_esquerda == 0){
+      virarParaDireita();
+  }
+  if (leitura_direita == 1 and leitura_esquerda == 1){
+      para_motores();
+  }
+ 
+ 
 
 }
 
@@ -69,28 +68,34 @@ void anda_frente(){
   digitalWrite(IN2, HIGH);
   digitalWrite(IN3, HIGH);   // Motor Direito
   digitalWrite(IN4, LOW);
-  analogWrite(VELOCIDADE_DIREITA, VELOCIDADE); 
+  analogWrite(VELOCIDADE_DIREITA, VELOCIDADE);
   analogWrite(VELOCIDADE_ESQUERDO, VELOCIDADE);
+  delay(TEMPO);
+  para_motores();
 }
 
 void virarParaDireita() {
-  Serial.println("Movendo para Esquerda...");
+  Serial.println("Movendo para Direita...");
   digitalWrite(IN1, HIGH); // Motor Esquerdo para frente
   digitalWrite(IN2, LOW);
   digitalWrite(IN3, HIGH);  // Motor Direito para trás
   digitalWrite(IN4, LOW);
   analogWrite(VELOCIDADE_DIREITA, VELOCIDADE);
-  analogWrite(VELOCIDADE_ESQUERDO, 0);
+  analogWrite(VELOCIDADE_ESQUERDO, VELOCIDADE);
+  delay(TEMPO);
+  para_motores();
 }
 
 void virarParaEsquerda() {
-  Serial.println("Movendo para Direita...");
+  Serial.println("Movendo para Esquerda...");
   digitalWrite(IN1, LOW);  // Motor Esquerdo para trás
   digitalWrite(IN2, HIGH);
   digitalWrite(IN3, LOW); // Motor Direito para frente
   digitalWrite(IN4, HIGH);
-  analogWrite(VELOCIDADE_DIREITA, 0);
+  analogWrite(VELOCIDADE_DIREITA, VELOCIDADE);
   analogWrite(VELOCIDADE_ESQUERDO, VELOCIDADE);
+  delay(TEMPO);
+  para_motores();
 }
 
 void para_motores(){
@@ -99,6 +104,6 @@ void para_motores(){
   digitalWrite(IN2, LOW);
   digitalWrite(IN3, LOW);
   digitalWrite(IN4, LOW);
-  analogWrite(VELOCIDADE_DIREITA, 0); 
+  analogWrite(VELOCIDADE_DIREITA, 0);
   analogWrite(VELOCIDADE_ESQUERDO, 0);
 }
